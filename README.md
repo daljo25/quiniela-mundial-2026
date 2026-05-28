@@ -136,12 +136,12 @@ Endpoint:
 /api/matches/live-sync
 ```
 
-## Recalcular clasificación
+## Actualizar cuotas de polymarket
 
 Endpoint:
 
 ```text
-/api/leaderboard/recalculate
+/api/polymarket/sync
 ```
 
 Todos protegidos mediante:
