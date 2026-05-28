@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/matches/sync",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/polymarket/sync",
+      "schedule": "0 5 * * *"
+    }
+  ]
+}
