@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import AdminRoleToggle from '@/components/admin/AdminRoleToggle'
 import PaymentToggle from '@/components/admin/PaymentToggle'
+import DeleteUserButton from '@/components/admin/DeleteUserButton'
 
 export default async function AdminUsersPage() {
   const user = await getServerUser()
@@ -42,6 +43,7 @@ export default async function AdminUsersPage() {
               <tr className="bg-gray-800 text-white text-left">
                 <th className="px-4 py-3">Nombre</th>
                 <th className="px-4 py-3">Correo</th>
+                <th className="px-4 py-3">Teléfono</th>
                 <th className="px-4 py-3 text-center">Pago validado</th>
                 <th className="px-4 py-3">Rol</th>
                 <th className="px-4 py-3">Registro</th>
@@ -53,6 +55,7 @@ export default async function AdminUsersPage() {
                 <tr key={u.id} className={`border-t border-gray-100 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
                   <td className="px-4 py-3 font-medium text-gray-900">{u.full_name}</td>
                   <td className="px-4 py-3 text-gray-600">{u.email}</td>
+                  <td className="px-4 py-3 text-gray-600">{u.phone ?? '—'}</td>
                   <td className="px-4 py-3 text-center">
                     <PaymentToggle userId={u.id} currentStatus={u.payment_status} />
                   </td>
@@ -64,7 +67,10 @@ export default async function AdminUsersPage() {
                   </td>
                   <td className="px-4 py-3">
                     {u.id !== user?.id && (
-                      <AdminRoleToggle userId={u.id} currentRole={u.role} />
+                      <div className="flex items-center gap-3">
+                        <AdminRoleToggle userId={u.id} currentRole={u.role} />
+                        <DeleteUserButton userId={u.id} email={u.email} />
+                      </div>
                     )}
                   </td>
                 </tr>
