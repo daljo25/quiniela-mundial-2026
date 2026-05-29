@@ -10,6 +10,7 @@ export default function RegisterPage() {
   const router = useRouter()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [termsAccepted, setTermsAccepted] = useState(false)
@@ -22,37 +23,33 @@ export default function RegisterPage() {
     setError(null)
 
     if (password !== confirm) {
-      setError('Las contrasenas no coinciden')
+      setError('Las contraseñas no coinciden')
       return
     }
     if (password.length < 6) {
-      setError('La contrasena debe tener al menos 6 caracteres')
+      setError('La contraseña debe tener al menos 6 caracteres')
       return
     }
     if (!termsAccepted) {
-      setError('Debes aceptar los terminos y condiciones para crear tu cuenta')
+      setError('Debes aceptar los términos y condiciones para crear tu cuenta')
       return
     }
 
     setLoading(true)
     const supabase = createClient()
-    console.log('RegisterPage: signing up', {
-      email,
-      fullName,
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-      hasAnonKey: Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
-    })
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
-    })
-    console.log('RegisterPage: supabase signUp response', {
-      data,
-      error,
+      options: {
+        data: {
+          full_name: fullName,
+          phone: phone,
+        },
+      },
     })
 
     if (error) {
-      setError(error.message)
+      setError('No se pudo crear la cuenta. Por favor verifica tus datos e intenta de nuevo.')
       setLoading(false)
       return
     }
@@ -113,6 +110,21 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
+              Teléfono
+            </label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              required
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900"
+              placeholder="612 345 678"
+            />
+            <p className="text-xs text-gray-400 mt-1">Necesitamos tu teléfono para contactarte si ganas</p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Correo electrónico
             </label>
             <input
@@ -128,7 +140,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Contrasena
+              Contraseña
             </label>
             <input
               type="password"
@@ -142,7 +154,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Confirmar contrasena
+              Confirmar contraseña
             </label>
             <input
               type="password"

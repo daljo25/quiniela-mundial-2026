@@ -7,6 +7,7 @@ export interface Profile {
   id: string
   email: string
   full_name: string
+  phone: string | null
   role: UserRole
   payment_status: PaymentStatus
   payment_receipt_url: string | null
