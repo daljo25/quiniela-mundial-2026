@@ -50,9 +50,9 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse
   }
 
-  if (user && (pathname === '/login' || pathname === '/register')) {
+  if (user && (pathname === '/login' || pathname === '/register' || pathname === '/')) {
     const url = request.nextUrl.clone()
-    url.pathname = '/'
+    url.pathname = '/predictions'
     return NextResponse.redirect(url)
   }
 
