@@ -32,18 +32,17 @@ El proyecto está pensado para ser autoalojado y desplegado fácilmente usando V
 
 # Stack Tecnológico
 
-* Next.js (App Router)
+* Next.js 16 (App Router)
+* React 19
 * TypeScript
-* Supabase
-
-  * Postgres
-  * Auth
-  * Storage
-  * Realtime
-* Tailwind CSS
-* Framer Motion
-* ShadCN UI
+* Supabase (Postgres, Auth, Storage, Realtime)
+* Tailwind CSS 4
+* Motion (framer-motion)
+* Lucide React
+* Upstash (Redis & Ratelimit)
 * Vitest
+* Zod & React Hook Form
+* Sentry (Error tracking)
 
 ---
 
