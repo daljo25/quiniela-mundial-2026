@@ -4,7 +4,7 @@
 // prediction data or live scores because staleness there is worse than
 // a spinner.
 
-const CACHE = 'quiniela-shell-v1'
+const CACHE = 'quiniela-shell-v3'
 const SHELL = ['/']
 
 self.addEventListener('install', event => {
@@ -31,6 +31,17 @@ self.addEventListener('fetch', event => {
 
   // Never cache API calls — scores, predictions, and auth must be fresh.
   if (url.pathname.startsWith('/api/')) return
+
+  // Exclude static assets from being intercepted as 'navigate' or cached as HTML
+  if (
+    url.pathname.endsWith('.webm') ||
+    url.pathname.endsWith('.webp') ||
+    url.pathname.endsWith('.svg') ||
+    url.pathname.endsWith('.png') ||
+    url.pathname.endsWith('.jpg')
+  ) {
+    return
+  }
 
   // Network-first for navigations with a cached-shell fallback, so users get
   // at least a working page when offline.

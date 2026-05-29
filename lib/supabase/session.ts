@@ -29,8 +29,8 @@ export async function updateSession(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Public routes
-  const publicRoutes = ['/login', '/register', '/forgot-password', '/reset-password', '/terms', '/api/auth/callback', '/api/matches/sync', '/api/matches/live-sync','/api/polymarket/sync']
-  const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route))
+  const publicRoutes = ['/login', '/register', '/forgot-password', '/reset-password', '/terms', '/api/auth/callback', '/api/matches/sync', '/api/matches/live-sync','/api/polymarket/sync', '/sw.js', '/video-back.webm', '/video-fallback.webp']
+  const isPublicRoute = pathname === '/' || publicRoutes.some(route => pathname.startsWith(route))
 
   if (!user && !isPublicRoute) {
     const url = request.nextUrl.clone()
